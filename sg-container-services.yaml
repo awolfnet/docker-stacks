@@ -7,7 +7,7 @@ services:
     volumes:
       - database-data:/var/lib/mysql
     networks:
-      vxlan-10658:
+      vxlan106540:
         ipv4_address: 10.65.8.2
 
   dbmanage:
@@ -16,7 +16,7 @@ services:
     volumes:
       - cloudbeaver-data:/opt/cloudbeaver/workspace
     networks:
-      vxlan-10658:
+      vxlan106540:
         ipv4_address: 10.65.8.3
   radius:
     image: radiusserver
@@ -32,7 +32,7 @@ services:
       - radius-weblog:/var/log/apache2
       - radius-config:/etc/freeradius
     networks:
-      vxlan-10658:
+      vxlan106540:
         ipv4_address: 10.65.8.11
 
 volumes:
@@ -45,6 +45,6 @@ volumes:
   cloudbeaver-data:
 
 networks:
-  vxlan-10658:
+  vxlan106540:
     external: true
     
