@@ -1,0 +1,51 @@
+version: "3.9"
+
+services:
+  database:
+    image: mariadb:10.2.43
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    volumes:
+      - database-data:/var/lib/mysql
+    networks:
+      vxlan-10658:
+        ipv4_address: 10.65.8.2
+
+  dbmanage:
+    image: dbeaver/cloudbeaver:latest
+    restart: unless-stopped
+    volumes:
+      - cloudbeaver-data:/opt/cloudbeaver/workspace
+    networks:
+      vxlan-10658:
+        ipv4_address: 10.65.8.3
+  radius:
+    image: radiusserver
+    restart: unless-stopped
+    environment:
+      FREERADIUS_ENABLE_WEB: "true"
+      FREERADIUS_DEBUG: "true"
+      TZ: Asia/Singapore
+    volumes:
+      - radius-log:/var/log/freeradius
+      - radius-webroot:/var/www
+      - radius-webconfig:/etc/apache2
+      - radius-weblog:/var/log/apache2
+      - radius-config:/etc/freeradius
+    networks:
+      vxlan-10658:
+        ipv4_address: 10.65.8.11
+
+volumes:
+  database-data:
+  radius-log:
+  radius-webroot:
+  radius-webconfig:
+  radius-weblog:
+  radius-config:
+  cloudbeaver-data:
+
+networks:
+  vxlan-10658:
+    external: true
