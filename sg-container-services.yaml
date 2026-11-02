@@ -36,7 +36,6 @@ services:
         ipv4_address: 10.65.40.11
   ucm:
     image: neyslim/ultimate-ca-manager:latest
-    container_name: ucm
     restart: unless-stopped
     volumes:
       - ucm-data:/opt/ucm/data
