@@ -34,7 +34,16 @@ services:
     networks:
       vxlan106540:
         ipv4_address: 10.65.40.11
-
+  ucm:
+    image: neyslim/ultimate-ca-manager:latest
+    container_name: ucm
+    restart: unless-stopped
+    volumes:
+      - ucm-data:/opt/ucm/data
+      - ucm-config:/etc/ucm
+    networks:
+      vxlan106540:
+        ipv4_address: 10.65.40.12
 volumes:
   database-data:
   radius-log:
@@ -43,6 +52,8 @@ volumes:
   radius-weblog:
   radius-config:
   cloudbeaver-data:
+  ucm-data:
+  ucm-config:
 
 networks:
   vxlan106540:
